@@ -41,17 +41,19 @@ export default function Skill() {
   const [search, setSearch] = useState("");
   const [limit, setLimit] = useState(20);
 
-  // Logic to handle responsiveness for card limits
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth < 1024) {
-        setLimit(10); // Mobile and Tablet
+      // ৩২০পিক্সেল বা ছোট স্ক্রিনের জন্য লিমিট আরও কমানো হয়েছে
+      if (window.innerWidth < 640) {
+        setLimit(8); 
+      } else if (window.innerWidth < 1024) {
+        setLimit(12);
       } else {
-        setLimit(20); // Laptop and Desktop
+        setLimit(20);
       }
     };
 
-    handleResize(); // Initial check
+    handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
@@ -65,67 +67,71 @@ export default function Skill() {
   const visibleSkills = showAll ? filtered : filtered.slice(0, limit);
 
   return (
-    <div className="min-h-screen bg-black text-white p-6 flex flex-col items-center">
-      
-      {/* --- Header Section with Gradient --- */}
-      <header className="mb-12 text-center">
-        <h1 className="text-5xl md:text-7xl font-black bg-gradient-to-r from-blue-500 via-cyan-400 to-indigo-500 bg-clip-text text-transparent mb-4">
+    <div className="min-h-screen bg-black text-white p-4 sm:p-6 flex flex-col items-center">
+
+      {/* Header - ৩২০px এর জন্য text সাইজ অপ্টিমাইজড */}
+      <header className="mb-10 text-center max-w-full px-2">
+        <h1 className="text-3xl xs:text-4xl sm:text-6xl md:text-7xl font-black bg-gradient-to-r from-blue-500 via-cyan-400 to-indigo-500 bg-clip-text text-transparent mb-4 leading-tight">
           Tech Stack
         </h1>
-        <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+        <p className="text-gray-400 text-xs sm:text-lg max-w-2xl mx-auto leading-relaxed">
           A curated list of my technical skills and the tools I use daily.
         </p>
       </header>
 
-      {/* --- Filter and Search UI --- */}
-      <div className="flex w-full max-w-3xl gap-4 mb-10">
+      {/* Search + Filter - ৩২০px এ এগুলো যেন ভেঙে না যায় তাই flex-col করা হয়েছে */}
+      <div className="flex flex-col xs:flex-row w-full max-w-3xl gap-3 mb-10">
         <input
           type="text"
           placeholder="Search skill..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="flex-1 px-5 py-3 rounded-xl bg-white/5 border border-white/10 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
+          className="w-full flex-1 px-4 py-3 rounded-xl bg-white/5 border border-white/10 focus:outline-none focus:border-blue-500 text-sm transition-all"
         />
 
         <select
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
-          className="px-4 py-3 rounded-xl bg-white/5 border border-white/10 focus:outline-none cursor-pointer"
+          className="w-full xs:w-auto px-3 py-3 rounded-xl bg-zinc-900 border border-white/10 cursor-pointer text-sm focus:outline-none focus:border-blue-500"
         >
-          <option className="bg-zinc-900" value="all">All</option>
-          <option className="bg-zinc-900" value="web">Web</option>
-          <option className="bg-zinc-900" value="library">Library</option>
-          <option className="bg-zinc-900" value="framework">Framework</option>
-          <option className="bg-zinc-900" value="backend">Backend</option>
-          <option className="bg-zinc-900" value="design">Design</option>
-          <option className="bg-zinc-900" value="tool">Tool</option>
-          <option className="bg-zinc-900" value="ai">AI</option>
+          <option value="all">All Category</option>
+          <option value="web">Web</option>
+          <option value="library">Library</option>
+          <option value="framework">Framework</option>
+          <option value="backend">Backend</option>
+          <option value="design">Design</option>
+          <option value="tool">Tool</option>
+          <option value="ai">AI</option>
         </select>
       </div>
 
-      {/* --- Skills Grid --- */}
-      <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6 w-full max-w-6xl">
+      {/* GRID - ছোট স্ক্রিনে (৩২০px) ২ কলাম এবং গ্যাপ কমানো হয়েছে */}
+      <div className="grid grid-cols-2 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-6 w-full max-w-6xl px-2">
         {visibleSkills.map((s) => (
           <div
             key={s.id}
-            className="group p-6 rounded-2xl bg-zinc-900/50 border border-white/5 flex flex-col items-center hover:bg-zinc-800/80 hover:border-blue-500/30 transition-all duration-300"
+            className="group p-3 xs:p-4 sm:p-6 rounded-2xl bg-zinc-900/50 border border-white/5 flex flex-col items-center hover:bg-zinc-800/80 hover:border-blue-500/30 transition-all duration-300"
           >
-            <div className="text-5xl mb-4 group-hover:scale-110 group-hover:drop-shadow-[0_0_15px_rgba(59,130,246,0.5)] transition-all">
+            <div className="text-3xl sm:text-4xl md:text-5xl mb-3 group-hover:scale-110 transition-all duration-300">
               {s.icon}
             </div>
-            <h2 className="font-bold text-lg text-white/90">{s.name}</h2>
-            <span className="text-[10px] font-medium uppercase tracking-widest text-blue-400/70 mt-1">
+
+            <h2 className="font-bold text-xs sm:text-base md:text-lg text-white/90 text-center truncate w-full">
+              {s.name}
+            </h2>
+
+            <span className="text-[9px] sm:text-xs font-medium uppercase tracking-tighter sm:tracking-widest text-blue-400/70 mt-1">
               {s.description}
             </span>
           </div>
         ))}
       </div>
 
-      {/* --- Show More Button --- */}
+      {/* Button */}
       {filtered.length > limit && (
         <button
           onClick={() => setShowAll(!showAll)}
-          className="mt-12 px-10 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white rounded-full font-bold shadow-xl shadow-blue-900/20 active:scale-95 transition-all"
+          className="mt-12 px-8 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-full font-bold text-sm sm:text-base active:scale-95 transition-all shadow-lg shadow-blue-900/20"
         >
           {showAll ? "Collapse List" : "Explore More"}
         </button>

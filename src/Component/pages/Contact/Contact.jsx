@@ -7,6 +7,7 @@ import { BsDiscord, BsTelegram } from "react-icons/bs";
 
 const Contact = () => {
   const [copiedId, setCopiedId] = useState(null);
+  const [toast, setToast] = useState("");
 
   const contactData = [
     {
@@ -86,11 +87,17 @@ const Contact = () => {
   const handleCopy = (text, id) => {
     navigator.clipboard.writeText(text);
     setCopiedId(id);
-    setTimeout(() => setCopiedId(null), 1500);
+    setToast("Copied Successfully ✔");
+
+    setTimeout(() => {
+      setCopiedId(null);
+      setToast("");
+    }, 1500);
   };
 
   const renderCards = (category) => (
     <div className="flex flex-col gap-3 w-full">
+
       <h2 className="text-sm sm:text-base font-bold text-blue-400/80 uppercase tracking-widest px-2">
         {category}
       </h2>
@@ -104,12 +111,14 @@ const Contact = () => {
               group relative flex items-center justify-between
               p-3 sm:p-4 rounded-xl
               bg-white/5 border border-white/10
-              hover:bg-white/10 hover:border-blue-500/40
+              hover:bg-white/10 hover:border-cyan-400/50
               transition-all duration-300
-              hover:scale-[1.01]
+              hover:-translate-y-1 hover:shadow-lg hover:shadow-cyan-500/10
+              active:scale-[0.98]
             "
           >
-            {/* LEFT SIDE (ICON ONLY) */}
+
+            {/* LEFT SIDE */}
             <a
               href={item.href}
               target="_blank"
@@ -117,36 +126,43 @@ const Contact = () => {
               className="flex items-center gap-3 flex-grow"
             >
               <div className="
-                text-xl sm:text-2xl
+                text-xl sm:text-2xl text-cyan-400
                 p-2 sm:p-3 rounded-lg
                 bg-white/5
-                group-hover:scale-110 transition
+                group-hover:text-blue-300
+                group-hover:scale-125 group-hover:rotate-3
+                transition-all duration-300
+                drop-shadow-[0_0_6px_rgba(34,211,238,0.7)]
               ">
                 {item.icon}
               </div>
 
-              <p className="text-xs sm:text-sm font-medium text-gray-300">
+              <p className="text-xs sm:text-sm font-medium text-gray-300 group-hover:text-cyan-300 transition">
                 {item.label}
               </p>
             </a>
 
-            {/* COPY BUTTON ONLY */}
+            {/* COPY BUTTON */}
             <button
               onClick={() => handleCopy(item.copyText, item.id)}
               className="
-                p-2 sm:p-3 rounded-lg
-                bg-white/5 hover:bg-blue-500/20
-                border border-transparent hover:border-blue-500/30
+                relative p-2 sm:p-3 rounded-lg
+                bg-white/5 hover:bg-cyan-500/20
+                border border-transparent hover:border-cyan-400/40
                 transition
-                active:scale-90
+                overflow-hidden
               "
             >
+              {/* ripple */}
+              <span className="absolute inset-0 scale-0 group-active:scale-100 bg-cyan-400/20 rounded-full transition"></span>
+
               {copiedId === item.id ? (
-                <FaCheck className="text-green-400 text-sm sm:text-base" />
+                <FaCheck className="text-green-400 text-sm sm:text-base animate-pulse" />
               ) : (
                 <FaCopy className="text-gray-400 text-sm sm:text-base" />
               )}
             </button>
+
           </div>
         ))}
     </div>
@@ -156,8 +172,13 @@ const Contact = () => {
     <div className="
       min-h-screen bg-black text-white
       py-16 sm:py-20 px-4 sm:px-6
-      flex flex-col items-center
+      flex flex-col items-center relative
+      overflow-hidden
     ">
+
+      {/* Glow BG */}
+      <div className="absolute w-[500px] h-[500px] bg-cyan-500/20 blur-[160px] rounded-full top-[-100px] left-[-100px]" />
+
       {/* HEADER */}
       <header className="mb-10 sm:mb-16 text-center">
         <h1 className="
@@ -183,12 +204,26 @@ const Contact = () => {
         {renderCards("Social")}
       </div>
 
-      {/* FOOTER TEXT */}
-      <div className="mt-16 sm:mt-20 opacity-30 text-center">
-        <p className="text-xs sm:text-sm tracking-[6px] sm:tracking-[10px] uppercase">
+      {/* FOOTER */}
+      <div className="mt-16 sm:mt-20 opacity-40 text-center">
+        <p className="text-xs sm:text-sm tracking-[8px] uppercase">
           Available for Work
         </p>
       </div>
+
+      {/* TOAST */}
+      {toast && (
+        <div className="
+          fixed bottom-6 left-1/2 -translate-x-1/2
+          bg-cyan-500/20 border border-cyan-400/30
+          text-cyan-200 px-5 py-2 rounded-full
+          backdrop-blur-md
+          animate-pulse
+        ">
+          {toast}
+        </div>
+      )}
+
     </div>
   );
 };

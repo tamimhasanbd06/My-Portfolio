@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { FaGraduationCap, FaMapMarkerAlt, FaPhoneAlt, FaBookOpen } from "react-icons/fa";
 // আপনার ইমেজের পাথটি ঠিক রাখুন
-import Madrasa_1 from "../../assets/images/unnamed(5).jpg";
+import Madrasa_1 from "../../assets/images/Picture-2026-04-10 14.3h8.28.jpg";
 
 const Education = () => {
   const [selectedImg, setSelectedImg] = useState(null);
