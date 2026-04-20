@@ -7,30 +7,30 @@ import { FaGithub, FaExternalLinkAlt } from "react-icons/fa";
 const projectsData = [
   {
     id: 1,
-    type: "Next.js",
+    type: "React",
     name: "DigTools",
     image: "https://s2.imgbb.ws/file/storage-sv2/Ds3SZ.png",
     description: "AI tool subscription platform for productivity and creativity.",
-    live: "https://digi-tools-2139.vercel.app/",
+    live: "https://digi-tools-xi.vercel.app/",
     code: "https://github.com/tamimhasanbd06/DigiTools",
   },
   {
     id: 2,
     type: "React",
-    name: "Crunchyroll",
-    image: "https://s1.imgbb.ws/file/storage-sv1/DszEA.png",
-    description: "Anime streaming platform with subtitles and dubbed content.",
-    live: "#",
-    code: "#",
+    name: " Bank loon",
+    image: "https://s1.imgbb.ws/file/storage-sv1/Kv3Xp.png",
+    description: "A bank loan website is a digital platform where users can easily check loan options, apply online, and manage repayments in a simple and convenient way.",
+    live: "https://bank-loan-calculator.vercel.app/",
+    code: "https://github.com/tamimhasanbd06/Bank-Loan-Calculator",
   },
   {
     id: 3,
     type: "React",
-    name: "Netflix",
-    image: "https://s1.imgbb.ws/file/storage-sv1/D2BYL.png",
-    description: "Global streaming platform offering movies, shows and originals.",
-    live: "#",
-    code: "#",
+    name: "Keen Keeper",
+    image: "https://s2.imgbb.ws/file/storage-sv2/KzGFS.png",
+    description: "This app allows instant audio, video, and text communication. Users can make voice and video calls, send instant text messages, and all data is securely encrypted, ensuring privacy and safety in every conversation.",
+    live: "https://keen-keeper-tawny.vercel.app/",
+    code: "https://github.com/tamimhasanbd06/Keen-Keeper",
   },
   {
     id: 4,
@@ -52,7 +52,7 @@ const projectsData = [
   },
   {
     id: 6,
-    type: "Daraz",
+    type: "Normal",
     name: "Daraz",
     image: "https://s2.imgbb.ws/file/storage-sv2/D2B2E.png",
     description: "Popular South Asian online shopping platform with deals.",
@@ -62,42 +62,48 @@ const projectsData = [
 ];
 
 /* =========================
-   PROJECT CARD (Optimized for 320px)
+   CARD
 ========================= */
 const ProjectCard = ({ project }) => {
   return (
-    <div className="group bg-white/5 border border-white/10 rounded-2xl overflow-hidden hover:border-blue-500/50 transition-all duration-500 hover:-translate-y-2 flex flex-col h-full shadow-lg">
-      <div className="relative h-40 xs:h-48 overflow-hidden">
+    <div className="group bg-white/5 border border-white/10 rounded-2xl overflow-hidden hover:border-blue-500/50 transition-all duration-500 hover:-translate-y-2 flex flex-col shadow-lg">
+
+      <div className="relative h-44 overflow-hidden">
         <img
           src={project.image}
           alt={project.name}
-          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
         />
-        <div className="absolute top-2 right-2 xs:top-3 xs:right-3 bg-black/70 backdrop-blur-md px-2 py-0.5 rounded-full border border-white/10">
-          <span className="text-blue-400 text-[9px] xs:text-[10px] font-bold uppercase tracking-widest">{project.type}</span>
+
+        <div className="absolute top-3 right-3 bg-black/80 px-2 py-1 rounded-full border border-white/10">
+          <span className="text-blue-400 text-[10px] font-bold uppercase">
+            {project.type}
+          </span>
         </div>
       </div>
 
-      <div className="p-4 xs:p-6 flex flex-col flex-grow">
-        <h2 className="text-lg xs:text-xl font-bold text-white mb-2 group-hover:text-blue-400 transition-colors">
+      <div className="p-5 flex flex-col flex-grow">
+        <h2 className="text-lg font-bold group-hover:text-blue-400 transition">
           {project.name}
         </h2>
-        <p className="text-xs xs:text-sm text-gray-400 line-clamp-2 mb-4 xs:mb-6 leading-relaxed">
+
+        <p className="text-xs text-gray-400 mt-2 mb-4 line-clamp-2">
           {project.description}
         </p>
 
-        <div className="flex gap-2 xs:gap-3 mt-auto">
+        <div className="flex gap-3 mt-auto">
           <a
             href={project.live}
-            className="flex-1 flex items-center justify-center gap-1.5 py-2 text-[10px] xs:text-xs font-bold bg-blue-600 hover:bg-blue-500 text-white rounded-lg xs:rounded-xl transition-all active:scale-95"
+            className="flex-1 flex items-center justify-center gap-2 py-2 text-xs font-bold bg-blue-600 hover:bg-blue-500 rounded-xl transition"
           >
-            <FaExternalLinkAlt size={10} /> Live
+            <FaExternalLinkAlt /> Live
           </a>
+
           <a
             href={project.code}
-            className="flex-1 flex items-center justify-center gap-1.5 py-2 text-[10px] xs:text-xs font-bold bg-white/5 hover:bg-white/10 text-white rounded-lg xs:rounded-xl border border-white/10 transition-all active:scale-95"
+            className="flex-1 flex items-center justify-center gap-2 py-2 text-xs font-bold bg-white/10 hover:bg-white/20 border border-white/10 rounded-xl transition"
           >
-            <FaGithub size={12} /> Code
+            <FaGithub /> Code
           </a>
         </div>
       </div>
@@ -106,9 +112,9 @@ const ProjectCard = ({ project }) => {
 };
 
 /* =========================
-   MAIN SECTION
+   MAIN
 ========================= */
-const Projects = () => {
+export default function Projects() {
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("All");
   const [showMore, setShowMore] = useState(false);
@@ -119,74 +125,83 @@ const Projects = () => {
     return matchSearch && matchFilter;
   });
 
-  const visibleProjects = showMore ? filteredProjects : filteredProjects.slice(0, 6);
+  const visibleProjects = showMore
+    ? filteredProjects
+    : filteredProjects.slice(0, 6);
 
   return (
-    <section className="min-h-screen bg-black text-white py-12 xs:py-20 px-4 xs:px-6 flex flex-col items-center">
-      
-      {/* HEADER */}
-      <header className="mb-8 xs:mb-12 text-center px-2">
-        <h1 className="text-3xl xs:text-5xl md:text-7xl font-black bg-gradient-to-r from-blue-500 via-cyan-400 to-indigo-500 bg-clip-text text-transparent mb-3 xs:mb-4 leading-tight">
-          Project Gallery
-        </h1>
-        <p className="text-gray-400 text-xs xs:text-lg max-w-2xl mx-auto">
-          A showcase of my recent work, side projects, and open-source contributions.
-        </p>
-      </header>
+    <section className="min-h-screen bg-black text-white py-16 px-4 flex flex-col items-center">
 
-      {/* SEARCH + DROPDOWN (Responsive stacking) */}
-      <div className="flex flex-col sm:flex-row w-full max-w-4xl gap-3 xs:gap-4 mb-10 xs:mb-12">
-        <div className="relative flex-1 group">
-          <input
-            type="text"
-            placeholder="Search projects..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            className="w-full px-4 xs:px-5 py-3 xs:py-3.5 rounded-xl xs:rounded-2xl bg-white/5 border border-white/10 text-white text-sm placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-all group-hover:bg-white/[0.08]"
-          />
-        </div>
+      {/* TITLE */}
+      <h1 className="text-4xl md:text-6xl font-black bg-gradient-to-r from-blue-500 to-cyan-400 bg-clip-text text-transparent mb-10">
+        Project Gallery
+      </h1>
 
-        <div className="relative w-full sm:w-52 group">
+      {/* SEARCH + FILTER */}
+      <div className="flex flex-col sm:flex-row gap-4 w-full max-w-4xl mb-10">
+
+        {/* SEARCH */}
+        <input
+          type="text"
+          placeholder="Search projects..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          className="flex-1 px-4 py-3 rounded-2xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-blue-500"
+        />
+
+        {/* CUSTOM DROPDOWN */}
+        <div className="relative w-full sm:w-56">
           <select
             value={filter}
             onChange={(e) => setFilter(e.target.value)}
-            className="w-full px-4 xs:px-5 py-3 xs:py-3.5 rounded-xl xs:rounded-2xl bg-zinc-900 sm:bg-white/5 border border-white/10 text-white text-sm appearance-none cursor-pointer focus:outline-none focus:border-blue-500 transition-all group-hover:bg-white/[0.08]"
+            className="
+              w-full px-5 py-3 pr-10
+              rounded-2xl
+              bg-black/90
+              border border-white/10
+              text-white text-sm
+              appearance-none cursor-pointer
+              focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-500
+              hover:bg-black
+              transition
+            "
           >
             <option value="All">All Projects</option>
             <option value="Next.js">Next.js</option>
             <option value="React">React</option>
             <option value="Normal">Normal</option>
           </select>
+
+          {/* arrow */}
           <div className="absolute inset-y-0 right-4 flex items-center pointer-events-none text-gray-400">
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"/>
+            </svg>
           </div>
         </div>
       </div>
 
       {/* GRID */}
       {visibleProjects.length > 0 ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 xs:gap-8 w-full max-w-7xl">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-6xl">
           {visibleProjects.map((project) => (
             <ProjectCard key={project.id} project={project} />
           ))}
         </div>
       ) : (
-        <div className="mt-20 text-gray-500 text-center italic text-sm">
-          No projects matching your search found.
-        </div>
+        <p className="text-gray-500 mt-20">No projects found</p>
       )}
 
       {/* MORE BUTTON */}
       {filteredProjects.length > 6 && (
         <button
           onClick={() => setShowMore(!showMore)}
-          className="mt-12 xs:mt-16 px-8 xs:px-10 py-3 xs:py-3.5 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-full font-bold text-sm xs:text-base shadow-xl active:scale-95 transition-all"
+          className="mt-12 px-8 py-3 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 font-bold hover:scale-105 transition"
         >
-          {showMore ? "Collapse Gallery" : "View More Projects"}
+          {showMore ? "Show Less" : "View More Projects"}
         </button>
       )}
+
     </section>
   );
-};
-
-export default Projects;
+}

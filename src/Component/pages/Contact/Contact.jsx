@@ -186,7 +186,7 @@ const Contact = () => {
           bg-gradient-to-r from-blue-500 via-cyan-400 to-indigo-500
           bg-clip-text text-transparent
         ">
-          Get In Touch
+          Contact Me
         </h1>
 
         <p className="text-gray-400 text-sm sm:text-lg max-w-xl mx-auto mt-3">
