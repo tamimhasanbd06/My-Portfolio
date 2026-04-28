@@ -23,7 +23,7 @@ const Education = () => {
   ];
 
   return (
-    <section className="min-h-screen bg-black text-white py-20 px-6 flex flex-col items-center">
+    <section className= "max-w[1110px] min-h-screen bg-black text-white py-20 px-6 flex flex-col items-center">
       
       {/* --- HEADER (Skills স্টাইলে) --- */}
       <header className="mb-16 text-center">
