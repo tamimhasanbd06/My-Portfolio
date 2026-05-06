@@ -35,30 +35,13 @@ const projectsData = [
   {
     id: 4,
     type: "Next.js",
-    name: "Disney+",
-    image: "https://s1.imgbb.ws/file/storage-sv1/D2nfm.jpg",
-    description: "Disney, Marvel, Pixar, Star Wars content streaming service.",
-    live: "#",
-    code: "#",
+    name: " Tile Gallery",
+    image: "https://s1.imgbb.ws/file/storage-sv1/Y07yV.png",
+    description: " Tile Gallery This is a  online Tile selling shop",
+    live: "https://tile-gallery-azure.vercel.app/",
+    code: "https://github.com/tamimhasanbd06/Tamim-Hassan-Portfolio",
   },
-  {
-    id: 5,
-    type: "Normal",
-    name: "Amazon",
-    image: "https://s2.imgbb.ws/file/storage-sv2/D2BXx.jpg",
-    description: "Global e-commerce marketplace with fast delivery and products.",
-    live: "#",
-    code: "#",
-  },
-  {
-    id: 6,
-    type: "Normal",
-    name: "Daraz",
-    image: "https://s2.imgbb.ws/file/storage-sv2/D2B2E.png",
-    description: "Popular South Asian online shopping platform with deals.",
-    live: "#",
-    code: "#",
-  },
+  
 ];
 
 /* =========================
