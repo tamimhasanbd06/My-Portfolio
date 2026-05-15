@@ -9,45 +9,51 @@ const SnakeCanvas = () => {
 
     let animationId;
 
-    const resizeCanvas = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    };
-
-    resizeCanvas();
-
-    const mouse = { x: canvas.width / 2, y: canvas.height / 2 };
+    const mouse = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
 
     const segments = [];
     const total = 40;
+
+    const resizeCanvas = () => {
+      const dpr = window.devicePixelRatio || 1;
+
+      canvas.width = window.innerWidth * dpr;
+      canvas.height = window.innerHeight * dpr;
+
+      canvas.style.width = window.innerWidth + "px";
+      canvas.style.height = window.innerHeight + "px";
+
+      ctx.scale(dpr, dpr);
+    };
+
+    resizeCanvas();
 
     for (let i = 0; i < total; i++) {
       segments.push({ x: mouse.x, y: mouse.y });
     }
 
-    const handleMouse = (e) => {
+    const handleMove = (e) => {
       mouse.x = e.clientX;
       mouse.y = e.clientY;
     };
 
-    window.addEventListener("mousemove", handleMouse);
+    window.addEventListener("pointermove", handleMove);
     window.addEventListener("resize", resizeCanvas);
 
-    // 🌈 Gradient background
     const drawBackground = () => {
       const gradient = ctx.createLinearGradient(
         0,
         0,
-        canvas.width,
-        canvas.height
+        window.innerWidth,
+        window.innerHeight
       );
 
-      gradient.addColorStop(0, "#020617"); // deep navy
-      gradient.addColorStop(0.5, "#001a33"); // blue shade
-      gradient.addColorStop(1, "#000814"); // dark base
+      gradient.addColorStop(0, "#020617");
+      gradient.addColorStop(0.5, "#001a33");
+      gradient.addColorStop(1, "#000814");
 
       ctx.fillStyle = gradient;
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
     };
 
     const draw = (x, y, i) => {
@@ -65,14 +71,13 @@ const SnakeCanvas = () => {
     };
 
     const animate = () => {
-      // 🎨 gradient background instead of white clear
       drawBackground();
 
       // head follow
       segments[0].x += (mouse.x - segments[0].x) * 0.2;
       segments[0].y += (mouse.y - segments[0].y) * 0.2;
 
-      // body follow chain
+      // body follow
       for (let i = 1; i < segments.length; i++) {
         const prev = segments[i - 1];
         const curr = segments[i];
@@ -93,12 +98,24 @@ const SnakeCanvas = () => {
 
     return () => {
       cancelAnimationFrame(animationId);
-      window.removeEventListener("mousemove", handleMouse);
+      window.removeEventListener("pointermove", handleMove);
       window.removeEventListener("resize", resizeCanvas);
     };
   }, []);
 
-  return <canvas ref={canvasRef} style={{ display: "block" }} />;
+  return (
+    <canvas
+      ref={canvasRef}
+      style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        zIndex: 0,
+        pointerEvents: "none",
+        display: "block",
+      }}
+    />
+  );
 };
 
 export default SnakeCanvas;
