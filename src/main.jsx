@@ -4,33 +4,88 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import "./index.css";
 
-// Components
-import Navbar from "./Component/Navbar.jsx";
-import Footer from "./Component/Footer.jsx";
+// Layout Components
+import Navbar from "./Component/Navbar/Navbar";
+import Footer from "./Component/Footer/Footer";
 
-// Pages
-import Home from "./Component/pages/Home/Home.jsx";
-import Contact from "./Component/pages/Contact/Contact.jsx";
-import Experience from "./Component/pages/Experience/Experience.jsx";
-import Skill from "./Component/pages/Skill/Skill.jsx";
-import Error from "./Component/pages/Error/Error.jsx";
-import Project from "./Component/pages/projects/projects.jsx"; // ✅ Capital
+// Lock Page
+import Lock from "../src/Component/pages/Lock/Lock";
+
+// Main Pages
+import Home from "./Component/pages/Home/Home";
+import Contact from "./Component/pages/Contact/Contact";
+import Experience from "./Component/pages/Experience/Experience";
+import Skill from "./Component/pages/Skill/Skill";
+import Error from "./Component/pages/Error/Error";
+import Project from "./Component/pages/projects/projects";
+
+// Layout Wrapper for Main Website
+const MainLayout = ({ children }) => {
+  return (
+    <div className="min-h-screen flex flex-col bg-black text-white overflow-x-hidden">
+      <Navbar />
+      <main className="flex-grow w-full relative">{children}</main>
+      <Footer />
+    </div>
+  );
+};
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <BrowserRouter>
-      <Navbar />
-
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/experience" element={<Experience />} />
-        <Route path="/skill" element={<Skill />} />
-        <Route path="/project" element={<Project />} /> {/* ✅ Fixed */}
+        {/* Lock Screen Default Route */}
+        <Route path="/" element={<Lock />} />
+
+        {/* Main Website Routes */}
+        <Route
+          path="/home"
+          element={
+            <MainLayout>
+              <Home />
+            </MainLayout>
+          }
+        />
+
+        <Route
+          path="/contact"
+          element={
+            <MainLayout>
+              <Contact />
+            </MainLayout>
+          }
+        />
+
+        <Route
+          path="/experience"
+          element={
+            <MainLayout>
+              <Experience />
+            </MainLayout>
+          }
+        />
+
+        <Route
+          path="/skill"
+          element={
+            <MainLayout>
+              <Skill />
+            </MainLayout>
+          }
+        />
+
+        <Route
+          path="/project"
+          element={
+            <MainLayout>
+              <Project />
+            </MainLayout>
+          }
+        />
+
+        {/* Error Page */}
         <Route path="*" element={<Error />} />
       </Routes>
-
-      <Footer />
     </BrowserRouter>
   </StrictMode>
 );
